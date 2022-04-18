@@ -12,6 +12,7 @@ provider:
 plugins:
   - serverless-webpack
   - serverless-webpack-prisma
+  - serverless-offline
 
 custom:
   dotenvVars: ${file(configs.js)}
