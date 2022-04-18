@@ -1,14 +1,26 @@
 service: tp
-frameworkVersion: '2 || 3'
+frameworkVersion: "2 || 3"
 
 provider:
   name: aws
   runtime: nodejs12.x
-  lambdaHashingVersion: '20201221'
+  lambdaHashingVersion: "20201221"
+  timeout: 30
+  environment: ${file(configs.js)}
+  stage: ${opt:stage, 'dev'}
+
+plugins:
+  - serverless-webpack
+  - serverless-webpack-prisma
+
+custom:
+  dotenvVars: ${file(configs.js)}
+  webpack:
+    includeModules: true
 
 functions:
   hello:
-    handler: handler.hello
+    handler: src/handler.handler
     events:
       - httpApi:
           path: /
